@@ -61,7 +61,8 @@ df <- left_join(countries, status, by = "name") |>
 tbl <- df |> 
   gt(
     rowname_col = "country",
-    groupname_col = "status"
+    groupname_col = "status",
+    row_group_as_column = TRUE
   ) |> 
   row_group_order(groups = c("Advise against all travel", "Advise against all travel to parts", "Advise against all but essential travel", "Advise against all but essential travel to parts")) |> 
   fmt_url(
@@ -129,7 +130,6 @@ tbl <- df |>
     column_labels.border.bottom.color = "transparent",
     table_body.border.bottom.color = "transparent",
     table.border.bottom.color = "transparent",
-    table_body.hlines.color = "gray60",
     quarto.disable_processing = TRUE
     ) |> 
   tab_style(
@@ -138,7 +138,15 @@ tbl <- df |>
       weight = px(2),
       color = "#FFFFFF"),
     locations = cells_row_groups()
+    ) |> 
+  tab_style(
+    style = cell_borders(
+      sides = "all", 
+      weight = px(0)),
+    locations = list(
+      cells_body()
     )
+  )
 ```
 
 This is the latest travel advice from the UK's [Foreign Commonwealth and Development Office (FCDO)](https://www.gov.uk/government/organisations/foreign-commonwealth-development-office). The information was scraped from the FCDO's [foreign travel advice pages](https://www.gov.uk/foreign-travel-advice).
