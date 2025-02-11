@@ -1,4 +1,6 @@
 on:
+  schedule:
+    - cron: '@daily'
   workflow_dispatch:
   push:
     branches: main
